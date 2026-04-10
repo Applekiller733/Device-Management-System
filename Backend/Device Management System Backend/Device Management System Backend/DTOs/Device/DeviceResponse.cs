@@ -1,8 +1,8 @@
 ﻿using Device_Management_System_Backend.Models.Enums;
 
-namespace Device_Management_System_Backend.Models
+namespace Device_Management_System_Backend.DTOs.Device
 {
-    public class Device
+    public class DeviceResponse
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
@@ -13,10 +13,6 @@ namespace Device_Management_System_Backend.Models
         public string Processor { get; set; } = string.Empty;
         public string RamAmount { get; set; } = string.Empty;
         public string? Description { get; set; }
-
-        // FK
         public Guid? AssignedUserId { get; set; }
-        
-        public User? AssignedUser { get; set; }
     }
 }
