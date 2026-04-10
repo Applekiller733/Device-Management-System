@@ -13,6 +13,18 @@ Env.Load();
 
 builder.Configuration.AddEnvironmentVariables();
 
+var frontendUrl = Environment.GetEnvironmentVariable("FrontendUrl") ?? "http://localhost:4200";
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins(frontendUrl)
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
                       ?? builder.Configuration.GetConnectionString("DefaultConnection");
 
@@ -40,6 +52,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors();
 
 app.UseHttpsRedirection();
 

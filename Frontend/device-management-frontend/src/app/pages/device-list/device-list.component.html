@@ -1,0 +1,58 @@
+<div class="device-list-container">
+    <header class="page-header">
+      <div class="title-group">
+        <h1>Managed Devices</h1>
+      </div>
+      <button class="btn btn-primary" (click)="createNewDevice()">
+        Add New Device
+      </button>
+    </header>
+  
+    <div class="state-container loading" *ngIf="isLoading">
+      <div class="spinner"></div>
+      <p>Loading devices and users...</p>
+    </div>
+  
+    <div class="state-container error" *ngIf="errorMessage">
+      <p>{{ errorMessage }}</p>
+      <button class="btn btn-outline" (click)="loadData()">Try Again</button>
+    </div>
+  
+    <div class="table-card" *ngIf="!isLoading && !errorMessage">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Device Name</th>
+            <th>Manufacturer</th>
+            <th>Type / OS</th>
+            <th>Assigned To</th>
+            <th class="text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let device of devices" click="viewDetails(device.id)" class="device-row">
+            <td class="font-medium">{{ device.name }}</td>
+            <td>{{ device.manufacturer }}</td>
+            <td>
+              <span class="text-muted"> {{ device.os }}</span>
+            </td>
+            <td>
+              <span class="user-badge" [class.unassigned]="!device.assignedUserId">
+                {{ getUserName(device.assignedUserId) }}
+              </span>
+            </td>
+            <td class="actions-cell">
+              <button class="btn btn-sm btn-outline" (click)="viewDetails(device.id)">View</button>
+              <button class="btn btn-sm btn-danger" (click)="deleteDevice(device.id)">Delete</button>
+            </td>
+          </tr>
+  
+          <tr *ngIf="devices.length === 0">
+            <td colspan="5" class="empty-state">
+              No devices found in the database.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
