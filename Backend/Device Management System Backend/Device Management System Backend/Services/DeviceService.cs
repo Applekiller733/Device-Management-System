@@ -11,11 +11,13 @@ namespace Device_Management_System_Backend.Services
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
+        private readonly IAIDescriptionService _aidescriptionservice;
 
-        public DeviceService(DataContext context, IMapper mapper)
+        public DeviceService(DataContext context, IMapper mapper, IAIDescriptionService aidescriptionservice)
         {
             _context = context;
             _mapper = mapper;
+            _aidescriptionservice = aidescriptionservice;
         }
 
         public async Task<IEnumerable<DeviceResponse>> GetAllDevicesAsync()
@@ -41,6 +43,17 @@ namespace Device_Management_System_Backend.Services
         public async Task<DeviceResponse> CreateDeviceAsync(CreateDeviceRequest request)
         {
             var device = _mapper.Map<Device>(request);
+
+            var description = request.Description;
+
+            if (string.IsNullOrWhiteSpace(description))
+            {
+                description = await _aidescriptionservice.GenerateDeviceDescriptionAsync(
+                    request.Name, request.Manufacturer, request.Type.ToString(),
+                    request.OS.ToString(), request.RamAmount, request.Processor);
+            }
+
+            device.Description = description;
 
             _context.Devices.Add(device);
             await _context.SaveChangesAsync();
@@ -70,6 +83,25 @@ namespace Device_Management_System_Backend.Services
             _context.Devices.Remove(device);
             await _context.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<bool> AssignDeviceAsync(Guid deviceId, Guid userId)
+        {
+            var device = await _context.Devices.FindAsync(deviceId);
+            if (device == null || device.AssignedUserId != null) return false;
+
+            device.AssignedUserId = userId;
+            return await _context.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> UnassignDeviceAsync(Guid deviceId, Guid userId)
+        {
+            var device = await _context.Devices.FindAsync(deviceId);
+            
+            if (device == null || device.AssignedUserId != userId) return false;
+
+            device.AssignedUserId = null;
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

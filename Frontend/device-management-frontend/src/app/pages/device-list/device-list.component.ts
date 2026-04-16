@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { forkJoin } from 'rxjs';
 
+import { AuthService } from '../../services/auth/auth.service';
 import { DeviceService } from '../../services/device/device.service';
 import { UserService } from '../../services/user/user.service';
 import { Device } from '../../models/device';
@@ -18,6 +19,7 @@ import { Device } from '../../models/device';
 export class DeviceListComponent implements OnInit {
   private deviceService = inject(DeviceService);
   private userService = inject(UserService);
+  private authService = inject(AuthService);
   private router = inject(Router);
 
   devices: Device[] = [];
@@ -26,11 +28,13 @@ export class DeviceListComponent implements OnInit {
   isLoading: boolean = true;
   errorMessage: string = '';
 
+  currentUserId: string | null = null;
+
   ngOnInit(): void {
+    this.currentUserId = this.authService.currentUser()?.id || null;
     this.loadData();
   }
 
-  // data fetch
   loadData(): void {
     this.isLoading = true;
 
@@ -87,5 +91,32 @@ export class DeviceListComponent implements OnInit {
         }
       });
     }
+  }
+
+  assignToMe(deviceId: string): void {
+    this.deviceService.assignDevice(deviceId).subscribe({
+      next: () => {
+        alert('Device assigned to you!');
+        this.loadData(); 
+      },
+      error: (err) => alert('Assignment failed: ' + err.error)
+    });
+  }
+
+  unassign(deviceId: string): void {
+    if (confirm('Are you sure you want to unassign this device?')) {
+      this.deviceService.unassignDevice(deviceId).subscribe({
+        next: () => {
+          alert('Device unassigned.');
+          this.loadData();
+        },
+        error: (err) => alert('Unassignment failed: ' + err.error)
+      });
+    }
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

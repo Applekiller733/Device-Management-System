@@ -10,5 +10,7 @@ namespace Device_Management_System_Backend.Services
         Task<DeviceResponse> CreateDeviceAsync(CreateDeviceRequest request);
         Task<bool> UpdateDeviceAsync(UpdateDeviceRequest request);
         Task<bool> DeleteDeviceAsync(Guid id);
+        Task<bool> AssignDeviceAsync(Guid deviceId, Guid userId);
+        Task<bool> UnassignDeviceAsync(Guid deviceId, Guid userId);
     }
 }

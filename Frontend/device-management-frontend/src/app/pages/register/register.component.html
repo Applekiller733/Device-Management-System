@@ -1,0 +1,65 @@
+<div class="auth-wrapper">
+    <div class="auth-card">
+      <header>
+        <h2>Create Account</h2>
+        <p>Join the Device Management system to start managing your inventory.</p>
+      </header>
+  
+      <div class="alert error" *ngIf="registerForm.invalid && registerForm.touched && registerForm.dirty">
+        Please fill in all fields correctly.
+      </div>
+  
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input 
+            id="name"
+            type="text" 
+            formControlName="name" 
+            placeholder="e.g. John Doe"
+            [class.input-error]="registerForm.get('name')?.invalid && registerForm.get('name')?.touched"
+          >
+          <small class="error-text" *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+            Name is required.
+          </small>
+        </div>
+  
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input 
+            id="email"
+            type="email" 
+            formControlName="email" 
+            placeholder="name@company.com"
+            [class.input-error]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+          >
+          <small class="error-text" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+            Please enter a valid email.
+          </small>
+        </div>
+  
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input 
+            id="password"
+            type="password" 
+            formControlName="password" 
+            placeholder="Min. 6 characters"
+            [class.input-error]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+          >
+          <small class="error-text" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+            Password must be at least 6 characters.
+          </small>
+        </div>
+  
+        <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">
+          Create Account
+        </button>
+      </form>
+  
+      <footer class="footer-text">
+        Already have an account? <a routerLink="/login">Sign In</a>
+      </footer>
+    </div>
+  </div>

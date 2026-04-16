@@ -3,6 +3,7 @@
       <div class="title-group">
         <h1>Managed Devices</h1>
       </div>
+      <button class="btn btn-danger" (click)="logout()">Log Out</button>
       <button class="btn btn-primary" (click)="createNewDevice()">
         Add New Device
       </button>
@@ -42,6 +43,23 @@
               </span>
             </td>
             <td class="actions-cell">
+              <ng-container [ngSwitch]="device.assignedUserId">
+      
+                <button *ngSwitchCase="null" 
+                        class="btn btn-assign" 
+                        (click)="assignToMe(device.id)">
+                  Assign to Me
+                </button>
+          
+                <button *ngSwitchCase="currentUserId" 
+                        class="btn btn-unassign" 
+                        (click)="unassign(device.id)">
+                  Release Device
+                </button>
+          
+                <span *ngSwitchDefault class="text-muted">In Use</span>
+          
+              </ng-container>
               <button class="btn btn-sm btn-outline" (click)="viewDetails(device.id)">View</button>
               <button class="btn btn-sm btn-danger" (click)="deleteDevice(device.id)">Delete</button>
             </td>

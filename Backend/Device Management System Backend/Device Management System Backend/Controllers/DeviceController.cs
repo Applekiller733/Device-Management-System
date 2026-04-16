@@ -1,11 +1,14 @@
 ﻿using Device_Management_System_Backend.DTOs.Device;
 using Device_Management_System_Backend.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Device_Management_System_Backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class DevicesController : ControllerBase
     {
         private readonly IDeviceService _deviceService;
@@ -29,7 +32,7 @@ namespace Device_Management_System_Backend.Controllers
             if (device == null) return NotFound();
             return Ok(device);
         }
-
+        
         [HttpPost]
         public async Task<ActionResult<DeviceResponse>> CreateDevice(CreateDeviceRequest device)
         {
@@ -55,6 +58,22 @@ namespace Device_Management_System_Backend.Controllers
             if (!success) return NotFound();
 
             return NoContent();
+        }
+
+        [HttpPost("{id}/assign")]
+        public async Task<IActionResult> Assign(Guid id)
+        {
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
+            var success = await _deviceService.AssignDeviceAsync(id, userId);
+            return success ? Ok() : BadRequest("Could not assign device.");
+        }
+
+        [HttpPost("{id}/unassign")]
+        public async Task<IActionResult> Unassign(Guid id)
+        {
+            var userId = Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value!);
+            var success = await _deviceService.UnassignDeviceAsync(id, userId);
+            return success ? Ok() : BadRequest("Could not unassign device.");
         }
     }
 }

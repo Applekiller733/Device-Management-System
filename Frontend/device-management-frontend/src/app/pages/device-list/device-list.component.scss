@@ -75,6 +75,18 @@ $text-muted: #64748b;
   }
 }
 
+.btn-assign {
+  background-color: #10b981; // Emerald Green
+  color: white;
+  &:hover { background-color: #059669; }
+}
+
+.btn-unassign {
+  background-color: #f59e0b; // Amber
+  color: white;
+  &:hover { background-color: #d97706; }
+}
+
 // Table Card
 .table-card {
   background: $card-bg;

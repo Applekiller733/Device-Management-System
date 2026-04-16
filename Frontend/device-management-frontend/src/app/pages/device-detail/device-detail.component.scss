@@ -1,0 +1,169 @@
+$primary-color: #2563eb;
+$primary-hover: #1d4ed8;
+$bg-color: #f8fafc;
+$card-bg: #ffffff;
+$border-color: #e2e8f0;
+$text-main: #0f172a;
+$text-muted: #64748b;
+
+.detail-container {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: system-ui, -apple-system, sans-serif;
+  color: $text-main;
+}
+
+// Card Wrapper
+.detail-card {
+  background: $card-bg;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  border: 1px solid $border-color;
+  overflow: hidden;
+}
+
+// Header
+.card-header {
+  padding: 2rem;
+  border-bottom: 1px solid $border-color;
+  background-color: $bg-color;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  .title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+
+    .back-btn {
+      background: none;
+      border: none;
+      color: $text-muted;
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 0;
+      margin-bottom: 0.5rem;
+      &:hover { color: $primary-color; text-decoration: underline; }
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+      color: $text-main;
+    }
+  }
+}
+
+// Body Layout
+.card-body {
+  padding: 2rem;
+}
+
+.info-section {
+  h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    color: $text-muted;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+
+  .label {
+    font-size: 0.875rem;
+    color: $text-muted;
+  }
+
+  .value {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+}
+
+.desc-section {
+  margin-top: 2rem;
+  
+  .description-text {
+    line-height: 1.6;
+    color: #334155;
+    background: #f1f5f9;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+}
+
+.divider {
+  border: 0;
+  border-top: 1px solid $border-color;
+  margin: 2rem 0;
+}
+
+// Shared UI Elements
+.btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+
+  &-primary {
+    background-color: $primary-color;
+    color: white;
+    &:hover { background-color: $primary-hover; }
+  }
+  &-outline {
+    background-color: transparent;
+    border: 1px solid $border-color;
+    color: $text-main;
+    &:hover { background-color: $bg-color; }
+  }
+}
+
+.user-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background-color: #dbeafe;
+  color: #1e40af;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+
+  &.unassigned {
+    background-color: #f1f5f9;
+    color: $text-muted;
+  }
+}
+
+.state-container {
+  text-align: center;
+  padding: 4rem 2rem;
+  color: $text-muted;
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid $border-color;
+    border-top-color: $primary-color;
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
