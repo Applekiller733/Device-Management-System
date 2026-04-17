@@ -1,0 +1,6 @@
+ConnectionStrings__DefaultConnection=<Database Connection>
+Frontend__Url=<Frontend URL>
+Jwt__Secret=<JWT Secret Key>
+Jwt__Issuer=<JWT Issuer>
+Jwt__Audience=<JWT Audience>
+Hf_Api_Key=<Hugging Face API Key>
