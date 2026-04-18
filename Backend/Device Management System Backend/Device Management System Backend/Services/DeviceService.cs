@@ -128,7 +128,7 @@ namespace Device_Management_System_Backend.Services
                 .ToList();
 
             
-            return rankedResults.Select(d => _mapper.Map<Device, DeviceResponse>(d));
+            return rankedResults.Select(d => _mapper.Map<DeviceResponse>(d));
         }
 
 

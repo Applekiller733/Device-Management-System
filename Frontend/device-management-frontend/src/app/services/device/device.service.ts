@@ -39,4 +39,8 @@ export class DeviceService {
   unassignDevice(id: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/${id}/unassign`, {});
   }
+
+  searchDevices(query: string): Observable<Device[]> {
+    return this.http.get<Device[]>(`${this.apiUrl}/search?q=${encodeURIComponent(query)}`);
+  }
 }

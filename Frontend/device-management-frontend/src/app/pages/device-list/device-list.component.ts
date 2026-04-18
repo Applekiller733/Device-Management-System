@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 
 import { AuthService } from '../../services/auth/auth.service';
@@ -12,7 +13,7 @@ import { Device } from '../../models/device';
 @Component({
   selector: 'app-device-list',
   standalone: true,
-  imports: [CommonModule, RouterModule], 
+  imports: [CommonModule, RouterModule, FormsModule], 
   templateUrl: './device-list.component.html',
   styleUrls: ['./device-list.component.scss']
 })
@@ -30,6 +31,8 @@ export class DeviceListComponent implements OnInit {
 
   currentUserId: string | null = null;
 
+  searchQuery: string = '';
+
   ngOnInit(): void {
     this.currentUserId = this.authService.currentUser()?.id || null;
     this.loadData();
@@ -40,7 +43,8 @@ export class DeviceListComponent implements OnInit {
 
     // forkjoin runs both API calls in parallel and waits for both to finish
     forkJoin({
-      devices: this.deviceService.getAllDevices(),
+      devices: this.searchQuery ? this.deviceService.searchDevices(this.searchQuery) 
+      : this.deviceService.getAllDevices(),
       users: this.userService.getAllUsers()
     }).subscribe({
       next: (result) => {
@@ -118,5 +122,9 @@ export class DeviceListComponent implements OnInit {
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  onSearch(): void {
+    this.loadData(); 
   }
 }

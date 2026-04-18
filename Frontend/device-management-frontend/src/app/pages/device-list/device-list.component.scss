@@ -169,3 +169,17 @@ $text-muted: #64748b;
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+.search-container {
+  display: flex;
+  gap: 0.5rem;
+  margin-right: auto; 
+  margin-left: 2rem;
+
+  input {
+    padding: 0.5rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    width: 250px;
+  }
+}

@@ -3,6 +3,16 @@
       <div class="title-group">
         <h1>Managed Devices</h1>
       </div>
+
+      <div class="search-container">
+        <input 
+          type="text" 
+          placeholder="Search devices (Name, Manuf, RAM)..." 
+          [(ngModel)]="searchQuery" 
+          (keyup.enter)="onSearch()">
+        <button class="btn btn-outline" (click)="onSearch()">Search</button>
+      </div>
+
       <button class="btn btn-danger" (click)="logout()">Log Out</button>
       <button class="btn btn-primary" (click)="createNewDevice()">
         Add New Device
