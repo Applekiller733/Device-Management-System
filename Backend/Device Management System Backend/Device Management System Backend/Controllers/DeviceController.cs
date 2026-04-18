@@ -75,5 +75,17 @@ namespace Device_Management_System_Backend.Controllers
             var success = await _deviceService.UnassignDeviceAsync(id, userId);
             return success ? Ok() : BadRequest("Could not unassign device.");
         }
+
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<DeviceResponse>>> SearchDevices([FromQuery] string q)
+        {
+            if (string.IsNullOrWhiteSpace(q))
+            {
+                return BadRequest("Search query cannot be empty.");
+            }
+
+            var devices = await _deviceService.SearchDevicesAsync(q);
+            return Ok(devices);
+        }
     }
 }

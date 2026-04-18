@@ -12,5 +12,6 @@ namespace Device_Management_System_Backend.Services
         Task<bool> DeleteDeviceAsync(Guid id);
         Task<bool> AssignDeviceAsync(Guid deviceId, Guid userId);
         Task<bool> UnassignDeviceAsync(Guid deviceId, Guid userId);
+        Task<IEnumerable<DeviceResponse>> SearchDevicesAsync(string query);
     }
 }
