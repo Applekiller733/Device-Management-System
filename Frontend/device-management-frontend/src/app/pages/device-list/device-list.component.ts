@@ -8,12 +8,20 @@ import { AuthService } from '../../services/auth/auth.service';
 import { DeviceService } from '../../services/device/device.service';
 import { UserService } from '../../services/user/user.service';
 import { Device } from '../../models/device';
-// import { User } from '../../models/user';
+
+import { MatTableModule } from '@angular/material/table'; 
+import { MatFormFieldModule } from '@angular/material/form-field'; 
+import { MatInputModule } from '@angular/material/input'; 
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-device-list',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule], 
+  imports: [CommonModule, RouterModule, FormsModule,
+     MatTableModule,        
+    MatFormFieldModule, 
+    MatInputModule, 
+    MatButtonModule], 
   templateUrl: './device-list.component.html',
   styleUrls: ['./device-list.component.scss']
 })

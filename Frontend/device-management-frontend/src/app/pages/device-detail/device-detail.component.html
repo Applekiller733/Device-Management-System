@@ -1,72 +1,69 @@
 <div class="detail-container">
-    <div class="state-container" *ngIf="isLoading">
-      <div class="spinner"></div>
-      <p>Loading device details...</p>
-    </div>
-  
-    <div class="state-container error" *ngIf="errorMessage">
-      <h2>Oops!</h2>
-      <p>{{ errorMessage }}</p>
-      <button class="btn btn-outline" (click)="goBack()">Go Back</button>
-    </div>
-  
-    <div *ngIf="!isLoading && !errorMessage && device" class="detail-card">
-      
-      <header class="card-header">
-        <div class="title-group">
-          <button class="back-btn" (click)="goBack()">← Back</button>
+  <div class="state-container" *ngIf="isLoading">...</div>
+
+  <mat-card appearance="outlined" class="detail-card" *ngIf="!isLoading && !errorMessage && device">
+    <mat-card-header>
+      <div class="header-row">
+        <button mat-icon-button (click)="goBack()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        
+        <div class="title-section">
           <h1>{{ device.name }}</h1>
-          <span class="user-badge" [class.unassigned]="!device.assignedUserId">
-            Assigned to: {{ assignedUser?.name || 'Unassigned' }}
-          </span>
+          <mat-chip-set>
+            <mat-chip [highlighted]="!!device.assignedUserId" 
+                      [color]="device.assignedUserId ? 'primary' : 'neutral'">
+              {{ device.assignedUserId ? 'Assigned' : 'Unassigned' }}
+            </mat-chip>
+          </mat-chip-set>
         </div>
-        <button class="btn btn-primary" (click)="editDevice()">Edit Device</button>
-      </header>
-  
-      <div class="card-body">
-        <div class="info-section">
-          <h3>Hardware Specifications</h3>
-          <div class="info-grid">
-            <div class="info-item">
-              <span class="label">Manufacturer</span>
-              <span class="value">{{ device.manufacturer }}</span>
-            </div>
-            <div class="info-item">
-              <span class="label">Device Type</span>
-              <span class="value">{{ device.type }}</span>
-            </div>
-            <div class="info-item">
-              <span class="label">Processor</span>
-              <span class="value">{{ device.processor || 'N/A' }}</span>
-            </div>
-            <div class="info-item">
-              <span class="label">RAM</span>
-              <span class="value">{{ device.ramAmount || 'N/A' }}</span>
-            </div>
-          </div>
-        </div>
-  
-        <hr class="divider" />
-  
-        <div class="info-section">
-          <h3>Software</h3>
-          <div class="info-grid">
-            <div class="info-item">
-              <span class="label">Operating System</span>
-              <span class="value">{{ device.os }}</span>
-            </div>
-            <div class="info-item">
-              <span class="label">OS Version</span>
-              <span class="value">{{ device.osVersion || 'N/A' }}</span>
-            </div>
-          </div>
-        </div>
-  
-        <div class="info-section desc-section" *ngIf="device.description">
-          <hr class="divider" />
-          <h3>Notes / Description</h3>
-          <p class="description-text">{{ device.description }}</p>
-        </div>
+
+        <span class="spacer"></span>
+        <button mat-raised-button color="primary" (click)="editDevice()">Edit Device</button>
       </div>
-    </div>
-  </div>
+    </mat-card-header>
+
+    <mat-card-content class="card-body">
+      <section class="info-section">
+        <h3 class="mat-headline-small">Hardware Specifications</h3>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">Manufacturer</span>
+            <span class="value">{{ device.manufacturer }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Device Type</span>
+            <span class="value">{{ device.type }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Processor</span>
+            <span class="value">{{ device.processor || 'N/A' }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">RAM</span>
+            <span class="value">{{ device.ramAmount || 'N/A' }}</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="info-section">
+        <h3 class="mat-headline-small">Software</h3>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">Operating System</span>
+            <span class="value">{{ device.os }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">OS Version</span>
+            <span class="value">{{ device.osVersion || 'N/A' }}</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="info-section" *ngIf="device.description">
+        <h3 class="mat-headline-small">Notes / Description</h3>
+        <p class="description-text">{{ device.description }}</p>
+      </section>
+    </mat-card-content>
+  </mat-card>
+</div>

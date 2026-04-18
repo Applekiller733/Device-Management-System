@@ -1,4 +1,66 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@include mat.core();
+
+$my-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
+  ),
+  typography: (
+    brand-family: 'Roboto, sans-serif',
+    plain-family: 'Roboto, sans-serif',
+  ),
+  density: (
+    scale: 0
+  ),
+));
+
+html {
+  background-color: #1a1c1e;
+  color: #e2e2e6;
+  height: 100%;
+
+  @include mat.all-component-themes($my-theme);
+  @include mat.strong-focus-indicators();
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.75rem;
+    color: var(--mat-sys-on-surface);
+  }
+
+h3 {
+    margin: 0 0 1rem 0;
+  }
+
+  .label {
+    font-size: 0.85rem;
+    color: var(--mat-sys-on-surface-variant); 
+  }
+
+  .value {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--mat-sys-on-surface);
+  }
+body {
+  margin: 0;
+  height: 100%;
+  font-family: Roboto, sans-serif;
+}
+
+.btn-danger {
+  --mdc-filled-button-container-color: var(--mat-sys-error);
+  --mdc-filled-button-label-text-color: var(--mat-sys-on-error);
+  --mdc-text-button-label-text-color: var(--mat-sys-error);
+  --mdc-outlined-button-label-text-color: var(--mat-sys-error);
+  --mdc-outlined-button-outline-color: var(--mat-sys-error);
+
+  &:focus {
+    outline: 4px dotted var(--mat-sys-error) !important;
+    outline-offset: 2px;
+  }
+}

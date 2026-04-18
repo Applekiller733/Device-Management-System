@@ -7,10 +7,20 @@ import { UserService } from '../../services/user/user.service';
 import { DeviceType, DeviceOperatingSystem } from '../../models/enums';
 import { User } from '../../models/user';
 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+
 @Component({
   selector: 'app-device-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule
+  ],
   templateUrl: './device-form.component.html',
   styleUrls: ['./device-form.component.scss']
 })

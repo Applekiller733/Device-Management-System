@@ -1,83 +1,71 @@
 <div class="form-container">
-    <div class="form-card">
-      <header>
-        <h1>{{ isEditMode ? 'Update Device' : 'Create New Device' }}</h1>
-        <p>Enter the technical specifications for the hardware.</p>
-      </header>
-  
-      <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
-        <div class="form-grid">
-          <div class="form-group">
-            <label>Device Name</label>
-            <input type="text" formControlName="name" placeholder="e.g. MacBook Pro 16" 
-                   [class.error]="deviceForm.get('name')?.invalid && deviceForm.get('name')?.touched">
-            <small class="error-text" *ngIf="deviceForm.get('name')?.errors?.['required'] && deviceForm.get('name')?.touched">
-              Name is required.
-            </small>
-          </div>
-  
-          <div class="form-group">
-            <label>Manufacturer</label>
-            <input type="text" formControlName="manufacturer" placeholder="e.g. Apple">
-          </div>
-  
-          <div class="form-group">
-            <label>Device Type</label>
-            <select formControlName="type">
-              <option [ngValue]="null">Select Type</option>
-              <option *ngFor="let type of deviceTypes" [ngValue]="type[1]">
-                {{ type[0] }}
-              </option>
-            </select>
-          </div>
-  
-          <div class="form-group">
-            <label>Operating System</label>
-            <select formControlName="os">
-              <option [ngValue]="null">Select OS</option>
-              <option *ngFor="let os of osTypes" [ngValue]="os[1]">
-                {{ os[0] }}
-              </option>
-            </select>
-          </div>
-  
-          <div class="form-group">
-            <label>OS Version</label>
-            <input type="text" formControlName="osVersion" placeholder="e.g. Sonoma 14.1">
-          </div>
-  
-          <div class="form-group">
-            <label>RAM Amount</label>
-            <input type="text" formControlName="ramAmount" placeholder="e.g. 32GB">
-          </div>
-  
-          <div class="form-group">
-            <label>Processor</label>
-            <input type="text" formControlName="processor" placeholder="e.g. M3 Max">
-          </div>
-  
-          <div class="form-group">
-            <label>Assign to User (Optional)</label>
-            <select formControlName="assignedUserId">
-              <option [ngValue]="null">Unassigned</option>
-              <option *ngFor="let user of users" [ngValue]="user.id">
-                {{ user.name }}
-              </option>
-            </select>
-          </div>
-        </div>
-  
-        <div class="form-group full-width">
-          <label>Description / Notes</label>
-          <textarea formControlName="description" rows="4"></textarea>
-        </div>
-  
-        <div class="form-actions">
-          <button type="button" class="btn btn-outline" routerLink="/">Cancel</button>
-          <button type="submit" class="btn btn-primary" [disabled]="deviceForm.invalid">
-            {{ isEditMode ? 'Save Changes' : 'Create Device' }}
-          </button>
-        </div>
-      </form>
-    </div>
+  <div class="form-card">
+    <header>
+      <h1>{{ isEditMode ? 'Update Device' : 'Create New Device' }}</h1>
+      <p>Enter the technical specifications for the hardware.</p>
+    </header>
+
+    <form [formGroup]="deviceForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Device Name</mat-label>
+          <input matInput formControlName="name" placeholder="e.g. MacBook Pro 16">
+          <mat-error *ngIf="deviceForm.get('name')?.invalid">Name is required.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Manufacturer</mat-label>
+          <input matInput formControlName="manufacturer" placeholder="e.g. Apple">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Device Type</mat-label>
+          <mat-select formControlName="type">
+            <mat-option [value]="null">Select Type</mat-option>
+            <mat-option *ngFor="let type of deviceTypes" [value]="type[1]">
+              {{ type[0] }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Operating System</mat-label>
+          <mat-select formControlName="os">
+            <mat-option [value]="null">Select OS</mat-option>
+            <mat-option *ngFor="let os of osTypes" [value]="os[1]">
+              {{ os[0] }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>OS Version</mat-label>
+          <input matInput formControlName="osVersion" placeholder="e.g. Sonoma 14.1">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>RAM Amount</mat-label>
+          <input matInput formControlName="ramAmount" placeholder="e.g. 32GB">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Processor</mat-label>
+          <input matInput formControlName="processor" placeholder="e.g. M3 Max">
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Description / Notes</mat-label>
+        <textarea matInput formControlName="description" rows="4"></textarea>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-button type="button" routerLink="/">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="deviceForm.invalid">
+          {{ isEditMode ? 'Save Changes' : 'Create Device' }}
+        </button>
+      </div>
+    </form>
   </div>
+</div>
