@@ -1,6 +1,6 @@
 # Device Management System
 
-A modern Device Management dashboard built with **Angular** and **Angular Material 3**. This system allows users to track hardware inventory, manage their device assignments, and perform CRUD operations.
+A modern Device Management dashboard built with **Angular** and **.NET**. This system allows users to track hardware inventory, manage their device assignments, and perform CRUD operations.
 
 ##  Features
 - **Assignment:** Users can assign devices to themselves or manage inventory.
